@@ -4,6 +4,10 @@ const morgan = require('morgan')
 require('dotenv').config()
 const fs = require('fs')
 const mongoose = require('mongoose')
+const csrf = require('csurf')
+const cookieParser = require('cookie-parser')
+
+const csrfProtection = csrf({cookie: true})
 
 // create express app
 const app = express()
@@ -17,10 +21,18 @@ mongoose.connect(process.env.Database, {
 // apply middleweares
 app.use(cors())
 app.use(express.json())
+app.use(cookieParser())
 app.use(morgan("dev"))
 
 // route
 fs.readdirSync('./routes').map((r) => app.use('/api', require(`./routes/${r}`)))
+
+//csrf
+app.use(csrfProtection)
+
+app.get('/api/csrf-token', (req, res) => {
+    res.json({ csrfToken : req.csrfToken()})
+})
 
 // port
 const port = process.env.port || 8000
