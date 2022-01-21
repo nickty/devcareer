@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import axios from 'axios'
 import { toast } from 'react-toastify';
 import { SyncOutlined } from '@ant-design/icons';
@@ -16,7 +16,11 @@ const login = () => {
 
   const {state, dispatch} = useContext(context)
 
-  console.log(state)
+  const {user} = state
+
+  useEffect(() => {
+    if(user !== null) router.push('/')
+  }, [user])
 
   const handleSubmit = async (e) => {
       e.preventDefault()
