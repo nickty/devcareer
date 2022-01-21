@@ -72,3 +72,12 @@ exports.register = async (req, res) =>  {
        return res.status(400).send('Error, Try Again')
    }
 }
+
+exports.currentUser = async (req, res) => {
+    try {
+        const user = await User.findById(req.user._id).select('-pasword')
+        return res.json(user)
+    } catch (error) {
+        console.log(error)
+    }
+}
