@@ -74,9 +74,10 @@ exports.register = async (req, res) =>  {
 }
 
 exports.currentUser = async (req, res) => {
+    console.log(req.user)
     try {
         const user = await User.findById(req.user._id).select('-pasword')
-        return res.json(user)
+        return res.json({ok : true})
     } catch (error) {
         console.log(error)
     }

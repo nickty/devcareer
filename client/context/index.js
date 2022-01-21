@@ -46,7 +46,7 @@ const Provider = ({children}) => {
             //any status code that falls outside of range of 2xx
             //call this function 
             let res = error.response;
-            if(res.status === 401 && res.config && !res.config._isRetryRequest){
+            if(res.status === 401 && res.config && !res.config.__isRetryRequest){
                 return new Promise((resolve, reject) => {
                     axios.get('/api/logout').then((data) => {
                         console.log('/401 error')
@@ -68,7 +68,8 @@ const Provider = ({children}) => {
     useEffect(() => {
         const getCsrfToken = async () => {
             const { data } = await axios.get('/api/csrf-token')
-            axios.defaults.headers['X-CSRF-Token'] = data.getCsrfToken
+            axios.defaults.headers['X-CSRF-Token'] = data.csrfToken
+            console.log(data)
         }
         getCsrfToken()
     }, [])

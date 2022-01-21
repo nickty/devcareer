@@ -28,8 +28,8 @@ const login = () => {
 
      try {
        setLoading(true)
-      const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API}/login`, { email, password})
-      console.log(data)
+      const { data } = await axios.post(`/api/login`, { email, password})
+      // console.log(data)
 
       // toast.success('Registration successful.Please login')
       dispatch({
