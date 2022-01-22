@@ -31,6 +31,7 @@ exports.login = async (req, res) => {
 
         //check password
         const match = await comparePassword(password, user.password)
+        if(!match) return res.status(400).send('Wrong Password')
 
         //create signe jwt
         const token = jwt.sign({_id:user._id}, process.env.JWT_SECRET, {expiresIn: '7d'})
@@ -174,5 +175,25 @@ exports.forgotPassword = async (req, res) => {
 
     } catch (error) {
         console.log(error)
+    }
+}
+
+exports.resetPassword = async (req, res) => {
+    try {
+        const { email, code, newPassword } = req.body
+
+        const hashP = await hashPassword(newPassword)
+
+        const user = User.findOneAndUpdate({email, passwordResetCode: code}, {
+            password: hashP,
+            passwordResetCode: ''
+        })
+
+        res.json({ok: true})
+         
+
+    } catch (error) {
+        console.log(error)
+        return res.status(400).send('Error Try again')
     }
 }

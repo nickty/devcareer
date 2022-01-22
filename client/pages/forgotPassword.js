@@ -45,6 +45,7 @@ const forgotPassword = () => {
       setCode('')
       setNewPassword('')
       setLoading(false)
+      toast('Now you can login with your new password')
     } catch (error) {
       console.log(error)
       toast(error.response.data)
