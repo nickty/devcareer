@@ -2,6 +2,7 @@ const User = require('../models/user')
 const { hashPassword, comparePassword } = require('../utils/auth')
 const jwt = require('jsonwebtoken')
 const AWS = require('aws-sdk')
+const { nanoid } = require('nanoid')
 
 const awsConfig = {
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -123,4 +124,55 @@ exports.sendEmail = async (req, res) => {
     }).catch(error => {
         console.log(error)
     })
+}
+
+exports.forgotPassword = async (req, res) => {
+    try {
+        const { email } = req.body
+        // console.log(email)
+        const shortCode = nanoid(6).toUpperCase()
+        const user = await User.findOneAndUpdate({email}, {passwordResetCode: shortCode})
+
+        if(!user) return res.status(400).send('User not found')
+
+        //prepare for email
+        const params = {
+            Source: process.env.EMAIL_FROM,
+            Destination: {
+                ToAddresses: [email]
+            },
+            Message: {
+                Body: {
+                    Html : {
+                        Charset: 'UTF-8',
+                        Data: `
+                            <html>
+                                <h1>Reset Password</h1>
+                                <p>Use this code to reset password</>
+
+                                <h2>${shortCode}</h2>
+                            </html>
+                        `
+                    }
+                },
+                Subject: {
+                    Charset: 'UTF-8', 
+                    Data: 'Reset Password'
+                }
+            }, 
+            
+        }
+
+        const emailSent = SES.sendEmail(params).promise()
+
+        emailSent.then(data => {
+            console.log(data)
+            res.json({ok: true})
+        }).catch(err => {
+            console.log(err)
+        })
+
+    } catch (error) {
+        console.log(error)
+    }
 }

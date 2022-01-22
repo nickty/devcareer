@@ -57,9 +57,12 @@ return <>
           <br />
           <button className='btn btn-block btn-primary p-2' disabled={!email || !password || loading}>{loading ? <SyncOutlined spin />: 'Submit'}</button>
         </form>
-        <p className='text-center p-3'>
+        <p className='text-center pt-3'>
           New here?
           <Link href="/register"><a>Register</a></Link>
+        </p>
+        <p className='text-center'>
+                    <Link href="/forgot-password"><a className='text-danger'>Forgot Password</a></Link>
         </p>
     </div>
 </>;
