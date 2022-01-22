@@ -1,6 +1,16 @@
 const User = require('../models/user')
 const { hashPassword, comparePassword } = require('../utils/auth')
 const jwt = require('jsonwebtoken')
+const AWS = require('aws-sdk')
+
+const awsConfig = {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    region: process.env.AWS_REGION,
+    apiVersion : process.env.AWS_API_VERSION
+}
+
+const SES = new AWS.SES(awsConfig)
 
 exports.logout = async (req, res) => {
     try {
@@ -81,4 +91,36 @@ exports.currentUser = async (req, res) => {
     } catch (error) {
         console.log(error)
     }
+}
+
+exports.sendEmail = async (req, res) => {
+    const params = {
+        Source: process.env.EMAIL_FROM,
+        Destination : {ToAddresses: ['rangpurdev@gmail.com']},
+        ReplyToAddresses: [process.env.EMAIL_FROM],
+        Message: {
+            Body:{
+                Html:{
+                    Charset: "UTF-8",
+                    Data: `<html>
+                        <h1>Reset Password link</h1>
+                        <p>Please use the flowing link to reset your password</p>
+                    </html>`
+                }
+            },
+            Subject: {
+                Charset: "UTF-8",
+                Data: 'Password Reset Link'
+            }
+        }
+    }
+
+    const emailSent = SES.sendEmail(params).promise()
+
+    emailSent.then((data) => {
+        console.log(data)
+        res.json({ok: true})
+    }).catch(error => {
+        console.log(error)
+    })
 }
