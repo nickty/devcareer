@@ -10,7 +10,7 @@ const index = () => {
 
       
   return <UserRoute>
-      <pre>{JSON.stringify(user, null, 4)}</pre>
+      <h2 className='jumbotron'>User Dashboard</h2>
   </UserRoute>
 };
 

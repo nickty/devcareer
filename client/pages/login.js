@@ -39,7 +39,7 @@ const login = () => {
       // SAVE IN LOCAL STOREAGE
       window.localStorage.setItem('user', JSON.stringify(data))
       setLoading(false)
-      router.push('/')
+      router.push('/user')
      } catch (error) {
       toast.error(error.response.data) 
       setLoading(false)
