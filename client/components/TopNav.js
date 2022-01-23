@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Menu } from 'antd'
 import Link from 'next/link'
-import { AppstoreOutlined, LayoutOutlined, LoginOutlined, UserAddOutlined, CoffeeOutlined} from '@ant-design/icons'
+import { AppstoreOutlined, LayoutOutlined, LoginOutlined, UserAddOutlined, CoffeeOutlined, CarryOutOutlined, TeamOutlined} from '@ant-design/icons'
 import { context } from '../context';
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -35,6 +35,19 @@ const { user } = state
               <a>App</a>
           </Link>
       </Item>
+      {user && user.role && user.role.includes("Instructor") ? (
+        <Item key="/instructor/course/create" onlick={e => setCurrent(e.key)} icon={<CarryOutOutlined />}>
+        <Link href="/instructor/course/create">
+            <a>Create Course</a>
+        </Link>
+    </Item>
+      ) : (
+        <Item key="/user/become-instructor" onlick={e => setCurrent(e.key)} icon={<TeamOutlined />}>
+        <Link href="/user/become-instructor">
+            <a>Become Instructor</a>
+        </Link>
+    </Item>
+      )}
       { user === null && (
           <>
           <Item key="/login" onlick={e => setCurrent(e.key)} icon={<LoginOutlined />}>
