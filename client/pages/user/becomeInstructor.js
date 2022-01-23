@@ -3,6 +3,7 @@ import {context} from '../../context'
 import { UserSwitchOutlined, LoadingOutlined, SettingOutlined } from '@ant-design/icons'
 import { Button } from 'antd'
 import { toast } from 'react-toastify';
+import axios from 'axios';
 
 const becomeInstructor = () => {
     const [loading, setLoading] = useState(false)
