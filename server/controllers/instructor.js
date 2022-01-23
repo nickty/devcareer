@@ -54,7 +54,7 @@ exports.getCurrentInstructor = async (req, res) => {
         let user = await User.findById(req.user._id).select('-password').exec()
 
         if(!user.role.includes('Instructor')) {
-            return res.status(403)
+            return res.sendStatus(403)
         } else {
             res.json({ok: true})
         }

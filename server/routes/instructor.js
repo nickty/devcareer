@@ -7,7 +7,7 @@ const router = express.Router()
 
 router.post('/make-instructor', requireSignin, makeInstructor)
 router.post('/get-account-status', requireSignin, getAccountStatus)
-router.post('/current-instructor', requireSignin, getCurrentInstructor)
+router.get('/current-instructor', requireSignin, getCurrentInstructor)
 
 
 module.exports = router
