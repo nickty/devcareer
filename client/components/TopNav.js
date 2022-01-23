@@ -42,8 +42,8 @@ const { user } = state
         </Link>
     </Item>
       ) : (
-        <Item key="/user/become-instructor" onlick={e => setCurrent(e.key)} icon={<TeamOutlined />}>
-        <Link href="/user/become-instructor">
+        <Item key="/user/becomeInstructor" onlick={e => setCurrent(e.key)} icon={<TeamOutlined />}>
+        <Link href="/user/becomeInstructor">
             <a>Become Instructor</a>
         </Link>
     </Item>
