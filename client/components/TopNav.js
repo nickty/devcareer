@@ -37,7 +37,7 @@ const TopNav = () => {
     router.push("/login");
   };
   return (
-    <Menu mode="horizontal" selectedKeys={[current]}>
+    <Menu mode="horizontal" selectedKeys={[current]} className="mb-2">
       <Item
         key="/"
         onlick={(e) => setCurrent(e.key)}
@@ -68,6 +68,9 @@ const TopNav = () => {
           </Link>
         </Item>
       )}
+
+
+
       {user === null && (
         <>
           <Item
@@ -90,11 +93,26 @@ const TopNav = () => {
           </Item>
         </>
       )}
+
+{user && user.role && user.role.includes("Instructor") && (
+   
+    <Item
+    key="/instructor"
+    onlick={(e) => setCurrent(e.key)}
+    icon={<LayoutOutlined />}
+    style={{ marginLeft: "auto" }}
+  >
+    <Link href="/instructor">
+      <a>Instructor</a>
+    </Link>
+  </Item>
+  
+)}
       {user !== null && (
         <SubMenu
           icon={<CoffeeOutlined />}
           title={user && user.name}
-          style={{ marginLeft: "auto" }}
+        //   style={{ marginLeft: "auto" }}
         >
           <ItemGroup>
             <Item key="/user" icon={<LayoutOutlined />}>
