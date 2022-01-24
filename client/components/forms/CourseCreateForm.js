@@ -1,11 +1,17 @@
 import React from 'react';
 
-import { Button, Select } from "antd";
+
+import { Button, Select, Avatar } from "antd";
 const { Option } = Select;
 
-const CourseCreateForm = ({handleSubmit, handleImage, handleChange, values, setValues}) => {
-  return  <form onSubmit={handleSubmit}>
-  <div className="form-group">
+const CourseCreateForm = ({handleSubmit, handleImage, handleChange, values, setValues, preview}) => {
+
+    const children = []
+    for(let i = 500.00; i <= 5000.00; i = i +50){
+        children.push(<Option key={i.toFixed(2)}>{i.toFixed(2)} Taka</Option>)
+    }
+  return (  <form onSubmit={handleSubmit}>
+  <div className="form-group pb-4">
     <input
       type="text"
       name="name"
@@ -15,7 +21,7 @@ const CourseCreateForm = ({handleSubmit, handleImage, handleChange, values, setV
       onChange={handleChange}
     />
   </div>
-  <div className="form-group">
+  <div className="form-group pb-4">
     <textarea
       name="description"
       onChange={handleChange}
@@ -25,9 +31,9 @@ const CourseCreateForm = ({handleSubmit, handleImage, handleChange, values, setV
       rows=""
     />
   </div>
-  <div className="form-row">
+  <div className="form-row pb-4">
     <div className="col">
-      <div className="form-group">
+     
         <Select
           onChange={(v) => setValues({ ...values, paid: !values.paid })}
           value={values.paid}
@@ -37,10 +43,33 @@ const CourseCreateForm = ({handleSubmit, handleImage, handleChange, values, setV
           <Option value={true}>Paid</Option>
           <Option value={false}>Free</Option>
         </Select>
-      </div>
+     
     </div>
+    {values.paid && <div className='col-md-4'>
+            
+                <Select
+                    defaultValue='500.00'
+                    style={{width: '100%'}}
+                    onChange={v => setValues({...values, price: v})}
+                    tokenSeparators={[,]}
+                    size='large'
+                >
+                    {children}
+                </Select>
+            </div>
+       }
   </div>
-  <div className="form-row">
+  <div className="form-group pb-4">
+    <input
+      type="text"
+      name="category"
+      className="form-control"
+      value={values.category}
+      placeHolder="Category"
+      onChange={handleChange}
+    />
+  </div>
+  <div className="form-row pb-4">
     <div className="col">
       <div className="form-group">
         <label className="btn btn-outline-secondary btn-block text-left">
@@ -55,6 +84,11 @@ const CourseCreateForm = ({handleSubmit, handleImage, handleChange, values, setV
         </label>
       </div>
     </div>
+    {preview && (
+      
+        <Avatar width={200} src={preview} />
+      
+    )}
   </div>
   <div className="row">
     <div className="col">
@@ -71,7 +105,7 @@ const CourseCreateForm = ({handleSubmit, handleImage, handleChange, values, setV
       </Button>
     </div>
   </div>
-</form>;
+</form> );
 };
 
 export default CourseCreateForm;

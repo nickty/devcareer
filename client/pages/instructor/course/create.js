@@ -15,13 +15,17 @@ const create = () => {
     paid: true,
     loading: false,
     imagePreview: "",
+    category: ''
   });
+  const [preview, setPeview] = useState('')
 
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
 
-  const handleImage = () => {};
+  const handleImage = (e) => {
+    setPeview(window.URL.createObjectURL(e.target.files[0]))
+  };
 
   const handleSubmit = () => {
     e.preventDefault();
@@ -37,6 +41,7 @@ const create = () => {
           handleChange={handleChange}
           values={values}
           setValues={setValues}
+          preview = {preview}
         />
       </div>
     </InstructorRoute>
