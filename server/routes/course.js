@@ -1,5 +1,5 @@
 const express = require('express')
-const { uploadImage, removeImage } = require('../controllers/course')
+const { uploadImage, removeImage, create } = require('../controllers/course')
 const { requireSignin, isInstructor } = require('../middlewares')
 
 const router = express.Router()
