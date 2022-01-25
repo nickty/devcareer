@@ -5,6 +5,7 @@ import CourseCreateForm from "../../../components/forms/CourseCreateForm";
 import Resizer from 'react-image-file-resizer'
 import {toast} from 'react-toastify'
 import axios from "axios";
+import { useRouter } from 'next/router'
 
 const { Option } = Select;
 
@@ -22,6 +23,8 @@ const create = () => {
   const [image, setImage] = useState({})
   const [preview, setPeview] = useState('')
   const [uploadButtonText, setUploadButtonText] = useState('Upload Image')
+
+  const router = useRouter()
 
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });

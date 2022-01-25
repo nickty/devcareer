@@ -1,5 +1,7 @@
 const AWS = require('aws-sdk')
 const { nanoid } = require('nanoid')
+const Course = require('../models/course.js')
+const slugify = require('slugify')
 
 const awsConfig = {
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -66,5 +68,21 @@ exports.removeImage = async (req, res) => {
 
 //create course 
 exports.create = async (req, res) => {
-    
+    try {
+        const alreadyExist = await Course.findOne({
+            slug: slugify(req.body.name.toLowerCase())
+        })
+        if(alreadyExist) return res.status(400).send('Title is created')
+
+        const course = await new Course({
+            slug: slugify(req.body.name),
+            instructor: req.user._id,
+            ...req.body
+        }).save()
+
+        res.json(course)
+    } catch (error) {
+        console.log(error)
+        return res.status(400).send('Course create failed. Try again!')
+    }
 }
