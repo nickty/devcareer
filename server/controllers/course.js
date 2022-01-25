@@ -63,3 +63,8 @@ exports.removeImage = async (req, res) => {
         console.log(error)
     }
 }
+
+//create course 
+exports.create = async (req, res) => {
+    
+}

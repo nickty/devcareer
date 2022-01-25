@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import InstructorRoute from "../../../components/routes/InstructorRoute";
-import { Button, Select } from "antd";
-import { SaveOutlined } from "@ant-design/icons";
+import { Select } from "antd";
 import CourseCreateForm from "../../../components/forms/CourseCreateForm";
 import Resizer from 'react-image-file-resizer'
 import {toast} from 'react-toastify'
@@ -54,6 +53,16 @@ const create = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const {data} = await axios.post('/api/course', {
+        ...values,
+        image
+      })
+      toast('Great! Now you can start adding lessions')
+      router.push('/instructor')
+    } catch (error) {
+      toast(err.response.data)
+    }
     
   };
 
