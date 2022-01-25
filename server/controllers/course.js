@@ -86,3 +86,13 @@ exports.create = async (req, res) => {
         return res.status(400).send('Course create failed. Try again!')
     }
 }
+
+exports.read = async (req, res) => {
+    console.log(req.params.slug)
+    try {
+        const course = await Course.findOne({slug: req.params.slug}).populate('instructor', '_id name')
+        res.json(course)
+    } catch (error) {
+        console.log(error)
+    }
+}
