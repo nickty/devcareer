@@ -5,12 +5,20 @@ import axios from 'axios';
 import { Avatar, Tooltip, Button, Modal } from 'antd'
 import { EditOutlined, CheckOutlined, UploadOutlined } from '@ant-design/icons'
 import ReactMarkdown from 'react-markdown'
+import AddLessionForm from '../../../../components/forms/AddLessionForm';
 
 
 const CourseView = () => {
     const [course, setCourse] = useState({})
     const [visible, setVisible] = useState(false)
     const router = useRouter()
+
+    const [uploading, setUploading] = useState(false)
+    const [values, setValues] = useState({
+        title: '',
+        content: '',
+        video: ''
+    })
 
     const { slug } = router.query
     // console.log(slug)
@@ -20,6 +28,12 @@ const CourseView = () => {
     const loadCourse = async () => {
         const { data } = await axios.get(`/api/course/${slug}`)
         setCourse(data)
+    }
+
+    //function for adding lession
+    const handleAddLesson = e => {
+        e.preventDefault()
+        console.log(values)
     }
   return <InstructorRoute>
       <div className='container-fluid pt-3'>
@@ -56,7 +70,7 @@ const CourseView = () => {
                         icon={<UploadOutlined />}
                         size='large'
                     >
-                           Add Lession 
+                           Add Lesson 
                     </Button>
                 </div>
                 <br />
@@ -65,7 +79,7 @@ const CourseView = () => {
                 onCancel={() => setVisible(false)}
                 footer={null}
                 >
-                    How how how
+                    <AddLessionForm loading={uploading} values={values} setValues={setValues} handleAddLesson={handleAddLesson} />
                 </Modal>
               </div>
               
