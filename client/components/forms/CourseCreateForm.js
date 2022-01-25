@@ -1,10 +1,10 @@
 import React from 'react';
 
 
-import { Button, Select, Avatar } from "antd";
+import { Button, Select, Avatar, Badge } from "antd";
 const { Option } = Select;
 
-const CourseCreateForm = ({handleSubmit, handleImage, handleChange, values, setValues, preview}) => {
+const CourseCreateForm = ({handleSubmit, handleImage, handleChange, values, setValues, preview, uploadButtonText, handleImageRemove}) => {
 
     const children = []
     for(let i = 500.00; i <= 5000.00; i = i +50){
@@ -73,7 +73,7 @@ const CourseCreateForm = ({handleSubmit, handleImage, handleChange, values, setV
     <div className="col">
       <div className="form-group">
         <label className="btn btn-outline-secondary btn-block text-left">
-          {values.loading ? "Uploading" : "Image Upload"}
+          {uploadButtonText}
           <input
             type="file"
             name="image"
@@ -86,7 +86,9 @@ const CourseCreateForm = ({handleSubmit, handleImage, handleChange, values, setV
     </div>
     {preview && (
       
-        <Avatar width={200} src={preview} />
+        <Badge count="X" onClick={handleImageRemove} className='pointer'>
+          <Avatar width={200} src={preview} />
+        </Badge>
       
     )}
   </div>
