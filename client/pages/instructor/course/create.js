@@ -13,7 +13,7 @@ const create = () => {
   const [values, setValues] = useState({
     name: "",
     description: "",
-    price: "500.00",
+    price: "0.00",
     uploading: false,
     paid: true,
     loading: false,

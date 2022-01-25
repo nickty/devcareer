@@ -1,6 +1,7 @@
 const User = require('../models/user')
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 const queryString = require('query-string')
+const Course = require('../models/course.js')
 
 exports.getAccountStatus = async (req, res) => {
     try {
@@ -61,5 +62,15 @@ exports.getCurrentInstructor = async (req, res) => {
       
     } catch (error) {
         console.log(error)
+    }
+}
+
+exports.instructorCourse = async (req, res) => {
+    try {
+        const courses = await Course.find({instructor:req.user._id}).sort({createdAt: -1})
+
+        res.json(courses)
+    } catch (error) {
+        console.log(err)
     }
 }
