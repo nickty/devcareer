@@ -157,7 +157,7 @@ const CourseView = () => {
 
               <div className="row pb-5">
                   <div className="col lesson-list">
-                      <h4>{course && course.lessons && course.lessons.length}</h4>
+                      <h4>{course && course.lessons && course.lessons.length} Lessons</h4>
                       <List itemLayout="horizontal" dataSource={course && course.lessons} renderItem={(item, index) => (
                           <List.Item>
                              <List.Item.Meta avatar={<Avatar>{index + 1}</Avatar>} title={item.title}></List.Item.Meta> 

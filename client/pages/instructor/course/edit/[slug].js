@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import InstructorRoute from "../../../../components/routes/InstructorRoute";
-import { Select } from "antd";
+import { Select, List, Avatar } from "antd";
 import CourseCreateForm from "../../../../components/forms/CourseCreateForm";
 import Resizer from 'react-image-file-resizer'
 import {toast} from 'react-toastify'
@@ -18,7 +18,8 @@ const CoureEdit = () => {
     paid: true,
     loading: false,
     imagePreview: "",
-    category: ''
+    category: '',
+    lessons: []
   });
   const [image, setImage] = useState({})
   const [preview, setPeview] = useState('')
@@ -113,6 +114,19 @@ const CoureEdit = () => {
           editPage={true}
         />
       </div>
+        <hr />
+      <div className="row pb-5">
+                  <div className="col lesson-list">
+                      <h4>{values && values.lessons && values.lessons.length} Lessons</h4>
+                      <List itemLayout="horizontal" dataSource={values && values.lessons} renderItem={(item, index) => (
+                          <List.Item>
+                             <List.Item.Meta avatar={<Avatar>{index + 1}</Avatar>} title={item.title}></List.Item.Meta> 
+                          </List.Item>
+                      )}>
+
+                      </List>
+                      </div>
+              </div>
     </InstructorRoute>
   );
 };
