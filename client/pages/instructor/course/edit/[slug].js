@@ -35,6 +35,7 @@ const CoureEdit = () => {
   const loadCourse = async () => {
       const { data } = await axios.get(`/api/course/${slug}`)
       setValues(data)
+      if(data && data.image)  setImage(data.image)
   }
 
   const handleChange = (e) => {
@@ -68,11 +69,11 @@ const CoureEdit = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const {data} = await axios.post('/api/course', {
+      const {data} = await axios.put(`/api/course/${slug}`, {
         ...values,
         image
       })
-      toast('Great! Now you can start adding lessions')
+      toast('Course updated')
       router.push('/instructor')
     } catch (error) {
       toast(err.response.data)
@@ -109,6 +110,7 @@ const CoureEdit = () => {
           preview = {preview}
           uploadButtonText = {uploadButtonText}
           handleImageRemove = {handleImageRemove}
+          editPage={true}
         />
       </div>
     </InstructorRoute>

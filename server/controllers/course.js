@@ -166,3 +166,21 @@ exports.addLesson = async (req, res) => {
         return res.status(400).send('Add lesson failed')
     }
 }
+
+exports.update = async (req, res) => {
+    try {
+        const {slug} = req.params
+
+    const course = await Course.findOne({slug})
+
+    if(req.user._id != course.instructor){
+        return res.status(400).send('Unauthorized')
+    }
+
+    const updated = await Course.findOneAndUpdate({slug}, req.body, {new: true})
+    res.json(updated)
+    } catch (error) {
+        console.log(error)
+        return res.status(400).send(error.message)
+    }
+}

@@ -4,13 +4,14 @@ import React from 'react';
 import { Button, Select, Avatar, Badge } from "antd";
 const { Option } = Select;
 
-const CourseCreateForm = ({handleSubmit, handleImage, handleChange, values, setValues, preview, uploadButtonText, handleImageRemove}) => {
+const CourseCreateForm = ({editPage = false, handleSubmit, handleImage, handleChange, values, setValues, preview, uploadButtonText, handleImageRemove}) => {
 
     const children = []
     for(let i = 500.00; i <= 5000.00; i = i +50){
         children.push(<Option key={i.toFixed(2)}>{i.toFixed(2)} Taka</Option>)
     }
-  return (  <form onSubmit={handleSubmit}>
+  return (  values && (
+    <form onSubmit={handleSubmit}>
   <div className="form-group pb-4">
     <input
       type="text"
@@ -89,8 +90,12 @@ const CourseCreateForm = ({handleSubmit, handleImage, handleChange, values, setV
         <Badge count="X" onClick={handleImageRemove} className='pointer'>
           <Avatar width={200} src={preview} />
         </Badge>
+        
       
     )}
+    {editPage && values.image && <Badge count="X" onClick={handleImageRemove} className='pointer'>
+          <Avatar width={200} src={values.image.Location} />
+        </Badge>}
   </div>
   <div className="row">
     <div className="col">
@@ -107,7 +112,8 @@ const CourseCreateForm = ({handleSubmit, handleImage, handleChange, values, setV
       </Button>
     </div>
   </div>
-</form> );
+</form>
+  ) );
 };
 
 export default CourseCreateForm;
