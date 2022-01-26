@@ -184,3 +184,23 @@ exports.update = async (req, res) => {
         return res.status(400).send(error.message)
     }
 }
+
+exports.removeLesson = async (req, res) => {
+    try {
+        const {slug, lessonId} = req.params
+
+    const course = await Course.findOne({slug})
+
+    if(req.user._id != course.instructor){
+        return res.status(400).send('Unauthorized')
+    }
+
+    const updated = await Course.findByIdAndUpdate(course._id, {
+        $pull : {lessons: { _id: lessonId}}
+    })
+    res.json({ok: true})
+    } catch (error) {
+        console.log(error)
+        return res.status(400).send(error.message)
+    }
+}
