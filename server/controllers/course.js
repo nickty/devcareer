@@ -101,6 +101,9 @@ exports.read = async (req, res) => {
 exports.uploadVideo = async (req, res) => {
     
     try {
+        if(req.use._id != req.params.instructorId) {
+            return res.status(400).send('Unauthorized')
+        }
         const {video} = req.files;
        if(!video) return res.status(400).send('No video')
        const params = {
@@ -124,6 +127,10 @@ exports.uploadVideo = async (req, res) => {
 exports.uploadRemove = async (req, res) => {
     
     try {
+        if(req.use._id != req.params.instructorId) {
+            return res.status(400).send('Unauthorized')
+        }
+        
         const {Bucket, Key} = req.body;
     //    if(!video) return res.status(400).send('No video')
        const params = {
