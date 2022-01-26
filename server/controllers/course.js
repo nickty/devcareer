@@ -2,6 +2,7 @@ const AWS = require('aws-sdk')
 const { nanoid } = require('nanoid')
 const Course = require('../models/course.js')
 const slugify = require('slugify')
+const { readFileSync } = require('fs')
 
 const awsConfig = {
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -92,6 +93,50 @@ exports.read = async (req, res) => {
     try {
         const course = await Course.findOne({slug: req.params.slug}).populate('instructor', '_id name')
         res.json(course)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+exports.uploadVideo = async (req, res) => {
+    
+    try {
+        const {video} = req.files;
+       if(!video) return res.status(400).send('No video')
+       const params = {
+        Bucket: 'devcareer',
+        Key:`${nanoid()}.${video.type.split('/')[1]}`,
+        Body: readFileSync(video.path),
+        ACL: 'public-read',
+        ContentType: `video/${video.type}`
+       }
+       S3.upload(params, (err, data) => {
+           if(err){
+               console.log(err)
+               res.sendStatus(400)
+           }
+           res.send(data)
+       })
+    } catch (error) {
+        console.log(error)
+    }
+}
+exports.uploadRemove = async (req, res) => {
+    
+    try {
+        const {Bucket, Key} = req.body;
+    //    if(!video) return res.status(400).send('No video')
+       const params = {
+        Bucket,
+        Key
+              }
+       S3.deleteObject(params, (err, data) => {
+           if(err){
+               console.log(err)
+               res.sendStatus(400)
+           }
+           res.send({ok: true})
+       })
     } catch (error) {
         console.log(error)
     }
