@@ -9,7 +9,7 @@ const AddLessionForm = ({handleVideoRemove, values, progress, setValues, handleA
         <input
           type="text"
           className="form-control"
-          onChage={(e) => setValues({ ...values, title: e.target.value })}
+          onChange={(e) => setValues({ ...values, title: e.target.value })}
           autoFocus
           required
           placeholder="Title"
@@ -20,7 +20,7 @@ const AddLessionForm = ({handleVideoRemove, values, progress, setValues, handleA
           cols="7"
           rows="7"
           className="form-control mt-3"
-          onChange={(e) => setValues({ ...values, content: e.target.values })}
+          onChange={(e) => setValues({ ...values, content: e.target.value })}
           value={values.content}
           placeholder="Content"
         ></textarea>

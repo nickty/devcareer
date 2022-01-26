@@ -1,5 +1,5 @@
 const express = require('express')
-const { uploadImage, removeImage, create, read, uploadVideo, uploadRemove } = require('../controllers/course')
+const { uploadImage, removeImage, create, read, uploadVideo, uploadRemove, addLesson } = require('../controllers/course')
 const { requireSignin, isInstructor } = require('../middlewares')
 const formidable = require('express-formidable')
 
@@ -14,6 +14,7 @@ router.post('/course', requireSignin, isInstructor, create)
 router.get('/course/:slug', read)
 router.post('/course/video-upload/:instructorId', requireSignin, formidable(), uploadVideo)
 router.post('/course/video-remove/:instructorId', requireSignin,  uploadRemove)
+router.post('/course/lesson/:slug/:instructorId', requireSignin,  addLesson)
 
 
 
