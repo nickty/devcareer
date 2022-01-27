@@ -152,6 +152,8 @@ exports.uploadRemove = async (req, res) => {
 exports.addLesson = async (req, res) => {
     try {
         const {slug, instructorId} = req.params
+        console.log(req.params)
+        console.log(req.user._id)
         const {title, content, video} = req.body
         if(req.user._id != instructorId) {
             return res.status(400).send('Unauthorized')
@@ -171,9 +173,9 @@ exports.update = async (req, res) => {
     try {
         const {slug} = req.params
 
-    const course = await Course.findOne({slug})
+    const course = await Course.findOne({slug}).select('instructor')
 
-    if(req.user._id != course.instructor){
+    if(req.user._id != course.instructor._id){
         return res.status(400).send('Unauthorized')
     }
 
@@ -202,5 +204,31 @@ exports.removeLesson = async (req, res) => {
     } catch (error) {
         console.log(error)
         return res.status(400).send(error.message)
+    }
+}
+
+exports.updateLesson = async (req, res) => {
+    try {
+        const { slug } = req.params
+    const {title, content, video, free_preview, _id} = req.body
+    const course = await Course.findOne({slug}).select('instructor').exec()
+    if(course.instructor._id != req.user._id){
+        return res.status(400).send('Unauthorized')
+    }
+
+    const updated = await Course.updateOne({'lessons._id': _id}, {
+        $set: {
+            "lessons.$.title" : title,
+            "lessons.$.content" : content,
+            "lessons.$.video" : video,
+            "lessons.$.free_preview" : free_preview
+        }
+    }, {new: true}).exec()
+
+    res.json({ok: true})
+    } catch (error) {
+        console.log(error)
+        return res.status(400).send('Update lesson failed')
+        
     }
 }
