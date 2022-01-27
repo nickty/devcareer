@@ -11,12 +11,15 @@ const {
   removeLesson,
   updateLesson,
   publishCourse,
-  unpublishCourse
+  unpublishCourse,
+  courses
 } = require("../controllers/course");
 const { requireSignin, isInstructor } = require("../middlewares");
 const formidable = require("express-formidable");
 
 const router = express.Router();
+
+router.get('/courses', courses)
 
 //publish and unpublish
 router.put("/course/publish/:courseId", requireSignin, publishCourse);

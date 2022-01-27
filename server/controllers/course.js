@@ -272,3 +272,9 @@ exports.unpublishCourse = async (req, res) => {
         return res.status(400).send('Unpublish failed')
     }
 }
+
+exports.courses = async (req, res) => {
+    const all = await Course.find({published: true}).populate('instructor', "_id name")
+
+    res.json(all)
+}
