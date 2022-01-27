@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import InstructorRoute from "../../../../components/routes/InstructorRoute";
 import axios from "axios";
 import { Avatar, Tooltip, Button, Modal, List, Item } from "antd";
-import { EditOutlined, CheckOutlined, UploadOutlined } from "@ant-design/icons";
+import { EditOutlined, CheckOutlined, UploadOutlined, QuestionCircleOutlined, CloseOutlined } from "@ant-design/icons";
 import ReactMarkdown from "react-markdown";
 import AddLessionForm from "../../../../components/forms/AddLessionForm";
 import { toast } from "react-toastify";
@@ -87,6 +87,14 @@ const CourseView = () => {
         toast("Video remove failed");
       }
   }
+
+  const handleUnpublish = (e, courseId) => {
+    
+  }
+  const handlePublish = (e, courseId) => {
+
+  }
+
   return (
     <InstructorRoute>
       <div className="container-fluid pt-3">
@@ -113,9 +121,14 @@ const CourseView = () => {
                 <Tooltip title="Edit">
                   <EditOutlined onClick={() => router.push(`/instructor/course/edit/${slug}`)} className="h5 text-warning mr-4 pointer" />
                 </Tooltip>
-                <Tooltip title="Publish">
-                  <CheckOutlined className="h5 pointer text-danger" />
-                </Tooltip>
+                {course.lessons && course.lessons.length < 5 ? <Tooltip title="Five lessons required to publish">
+                  <QuestionCircleOutlined className="h5 text-danger pointer" />
+                </Tooltip> : course.published ? <Tooltip title="Unpublished">
+                  <CloseOutlined onClick={e => handleUnpublish(e, course._id)} className="h5 text-danger pointer" />
+                </Tooltip> : <Tooltip title="Publish">
+                  <CheckOutlined onClick={e => handlePublish(e, course._id)} className="h5 text-success pointer" />
+                </Tooltip>}
+                
               </div>
 
               <div className="row">
