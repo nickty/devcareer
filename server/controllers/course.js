@@ -229,6 +229,46 @@ exports.updateLesson = async (req, res) => {
     } catch (error) {
         console.log(error)
         return res.status(400).send('Update lesson failed')
+
+    }
+}
+
+exports.publishCourse = async (req, res) => {
+    try {
+
+        const {courseId} = req.params
+    
+        const course = await Course.findById(courseId).select('instructor').exec()
+    
+        if(course.instructor._id != req.user._id){
+            return res.status(400).send('Unauthorized')
+        }
+
+        const updated = await Course.findByIdAndUpdate(courseId, {published: true}, {new: true})
+
+        res.json(updated)
         
+    } catch (error) {
+        console.log(error)
+        return res.status(400).send('Publish failed')
+    }
+}
+exports.unpublishCourse = async (req, res) => {
+    try {
+
+        const {courseId} = req.params
+
+        const course = await Course.findById(courseId).select('instructor').exec()
+        if(course.instructor._id != req.user._id){
+            return res.status(400).send('Unauthorized')
+        }
+
+        const updated = await Course.findByIdAndUpdate(courseId, {published: false}, {new: true})
+
+        res.json(updated)
+        
+    } catch (error) {
+        console.log(error)
+        return res.status(400).send('Unpublish failed')
     }
 }
