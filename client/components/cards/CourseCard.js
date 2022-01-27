@@ -20,7 +20,7 @@ const CourseCard = ({course}) => {
                 <Badge count={category} style={{backgroundColor: '#0389f4'}} className='pb-2 mr-2' />
                 <h4 className='pt-2'>{paid ?  currencyFormatter({
                     amount: price,
-                    currency: 'taka'
+                    currency: 'usd'
                 }) : 'Free'}</h4>
             </Card>
         </a>
