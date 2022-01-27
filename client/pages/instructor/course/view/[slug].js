@@ -88,11 +88,29 @@ const CourseView = () => {
       }
   }
 
-  const handleUnpublish = (e, courseId) => {
-    
-  }
-  const handlePublish = (e, courseId) => {
+  const handlePublish = async (e, courseId) => {
+    // console.log(courseId)
+    try {
+      let answer = window.confirm('Once you pulished, it will be available for user to buy!')
+    if(!answer) return;
 
+    const { data } = await axios.put(`/api/course/publish/${courseId}`)
+    setCourse(data)
+    toast('Congrats! Your course is live now')
+    } catch (error) {
+      toast('Your course is not live yet!, Try again')
+    }
+  }
+  const handleUnpublish = async (e, courseId) => {
+    try {
+      let answer = window.confirm('Once you unpublish, it will not be available for user to buy!')
+      if(!answer) return;
+      const { data } = await axios.put(`/api/course/unpublish/${courseId}`)
+    setCourse(data)
+    toast('Your course is unpublished')
+    } catch (error) {
+      toast('Your course unpublished failed')
+    }
   }
 
   return (
@@ -116,7 +134,7 @@ const CourseView = () => {
                   </p>
                 </div>
               </div>
-
+          {console.log('course info', course._id)}
               <div className="d-flex">
                 <Tooltip title="Edit">
                   <EditOutlined onClick={() => router.push(`/instructor/course/edit/${slug}`)} className="h5 text-warning mr-4 pointer" />
