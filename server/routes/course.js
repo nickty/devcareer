@@ -12,7 +12,8 @@ const {
   updateLesson,
   publishCourse,
   unpublishCourse,
-  courses
+  courses,
+  checkEnrollment
 } = require("../controllers/course");
 const { requireSignin, isInstructor } = require("../middlewares");
 const formidable = require("express-formidable");
@@ -42,6 +43,8 @@ router.post("/course/video-remove/:instructorId", requireSignin, uploadRemove);
 router.post("/course/lesson/:slug/:instructorId", requireSignin, addLesson);
 router.put("/course/lesson/:slug/:instructorId", requireSignin, updateLesson);
 router.put("/course/:slug/:lessonId", requireSignin, removeLesson);
+
+router.get('/check-enrollment/:courseId', requireSignin, checkEnrollment)
 
 
 

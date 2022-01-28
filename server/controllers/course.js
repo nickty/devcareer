@@ -3,6 +3,7 @@ const { nanoid } = require('nanoid')
 const Course = require('../models/course.js')
 const slugify = require('slugify')
 const { readFileSync } = require('fs')
+const User = require('../models/user.js')
 
 const awsConfig = {
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -277,4 +278,23 @@ exports.courses = async (req, res) => {
     const all = await Course.find({published: true}).populate('instructor', "_id name")
 
     res.json(all)
+}
+
+exports.checkEnrollment = async (req, res) => {
+    const { courseId } = req.params
+    console.log(courseId)
+    //find cousrse for current user
+    const user = await User.findById(req.user._id) 
+    console.log(user)
+    //check if course id is found and user courses array
+    let ids = []
+    let length = user.courses && user.courses.length
+    for(let i = 0; i < length; i++){
+        ids.push(user.courses[i].toString())
+    }
+
+    res.json({
+        status: ids.includes(courseId),
+        course: await Course.findById(courseId)
+    })
 }

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import SingleCourseJumbotron from "../../components/cards/SingleCourseJumbotron";
@@ -6,13 +6,27 @@ import PreviewModal from "../../components/modal/PreviewModal";
 import SingleCourseLesson from "../../components/cards/SingleCourseLesson";
 import {context} from '../../context'
 
+
 const SingleCourse = ({ course }) => {
   const [showModal, setShowModal] = useState(false);
   const [preview, setPreview] = useState("");
   const router = useRouter();
   const { slug } = router.query;
 
+  const [enrolled, setEnrolled] = useState({})
+
   const {state: {user}} = useContext(context)
+  console.log(user)
+
+  useEffect(() => {
+    if(user && course) checkEnrollment()
+  }, [user, course])
+
+  const checkEnrollment = async (req, res) => {
+    const { data } = await axios.get(`/api/check-enrollment/${course._id}`)
+    setEnrolled(data)
+    // console.log(data)
+  }
 
   const [loading, setLoading] = useState(false)
 
@@ -35,6 +49,8 @@ const SingleCourse = ({ course }) => {
         loading={loading}
         handleFreeEnrollment={handleFreeEnrollment}
         handlePaidEnrollment={handlePaidEnrollment}
+        enrolled={enrolled}
+        setEnrolled={setEnrolled}
       />
       <PreviewModal
         showModal={showModal}
