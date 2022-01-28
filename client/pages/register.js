@@ -31,7 +31,7 @@ const register = () => {
 
        try {
          setLoading(true)
-        const { data } = await axios.post(`/register`, {name, email, password})
+        const { data } = await axios.post(`/api/register`, {name, email, password})
         console.log(data)
 
         toast.success('Registration successful.Please login')

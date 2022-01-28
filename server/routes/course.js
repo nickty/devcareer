@@ -13,7 +13,8 @@ const {
   publishCourse,
   unpublishCourse,
   courses,
-  checkEnrollment
+  checkEnrollment,
+  freeEnrollment
 } = require("../controllers/course");
 const { requireSignin, isInstructor } = require("../middlewares");
 const formidable = require("express-formidable");
@@ -46,6 +47,7 @@ router.put("/course/:slug/:lessonId", requireSignin, removeLesson);
 
 router.get('/check-enrollment/:courseId', requireSignin, checkEnrollment)
 
-
+//enrollment
+router.post('/free-enrollment/:courseId', requireSignin, freeEnrollment)
 
 module.exports = router;
