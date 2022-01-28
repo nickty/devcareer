@@ -1,15 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import SingleCourseJumbotron from "../../components/cards/SingleCourseJumbotron";
 import PreviewModal from "../../components/modal/PreviewModal";
 import SingleCourseLesson from "../../components/cards/SingleCourseLesson";
+import {context} from '../../context'
 
 const SingleCourse = ({ course }) => {
   const [showModal, setShowModal] = useState(false);
   const [preview, setPreview] = useState("");
   const router = useRouter();
   const { slug } = router.query;
+
+  const {state: {user}} = useContext(context)
+
+  const [loading, setLoading] = useState(false)
+
+  const handlePaidEnrollment = () => {
+
+  }
+  const handleFreeEnrollment = () => {
+
+  }
 
   return (
     <>
@@ -19,6 +31,10 @@ const SingleCourse = ({ course }) => {
         setShowModal={setShowModal}
         preview={preview}
         setPreview={setPreview}
+        user={user}
+        loading={loading}
+        handleFreeEnrollment={handleFreeEnrollment}
+        handlePaidEnrollment={handlePaidEnrollment}
       />
       <PreviewModal
         showModal={showModal}

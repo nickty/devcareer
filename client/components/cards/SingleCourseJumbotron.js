@@ -1,23 +1,34 @@
-import React from 'react';
+import React from "react";
 import { currencyFormatter } from "../../utils/helpers";
-import { Badge, Modal } from "antd";
+import { Badge, Modal, Button } from "antd";
 import ReactPlayer from "react-player";
+import { LoadingOutlined, SafetyOutlined } from "@ant-design/icons";
 
-const SingleCourseJumbotron = ({course, setShowModal, showModal, preview, setPreview}) => {
-
-    const {
-        title,
-        description,
-        instructor,
-        updatedAt,
-        lessons,
-        image,
-        price,
-        paid,
-        category,
-      } = course;
-  return <>
-  <div className="jumbotron bd-primay">
+const SingleCourseJumbotron = ({
+  course,
+  setShowModal,
+  showModal,
+  preview,
+  setPreview,
+  user,
+  loading,
+  handleFreeEnrollment,
+  handlePaidEnrollment,
+}) => {
+  const {
+    title,
+    description,
+    instructor,
+    updatedAt,
+    lessons,
+    image,
+    price,
+    paid,
+    category,
+  } = course;
+  return (
+    <>
+      <div className="jumbotron bd-primay">
         <div className="row">
           <div className="col-md-8">
             <h2 className="text-light font-weight-bold">{title}</h2>
@@ -45,7 +56,7 @@ const SingleCourseJumbotron = ({course, setShowModal, showModal, preview, setPre
               <div
                 onClick={() => {
                   setPreview(lessons[0].video.Location);
-                  setShowModal(true)
+                  setShowModal(true);
                 }}
               >
                 <ReactPlayer
@@ -65,10 +76,29 @@ const SingleCourseJumbotron = ({course, setShowModal, showModal, preview, setPre
                 />
               </>
             )}
+            {loading ? (
+              <div className="d-flex justify-content-center">
+                <LoadingOutlined className="h1 text-danger" />
+              </div>
+            ) : (
+              <Button
+                className="mb-3 mt-3"
+                type="danger"
+                block
+                shape="round"
+                size="large"
+                disabled={loading}
+                icon={<SafetyOutlined />}
+                onClick={paid ? handlePaidEnrollment : handleFreeEnrollment}
+              >
+                {user ? "Enroll" : "Login to enroll"}
+              </Button>
+            )}
           </div>
         </div>
       </div>
-  </>;
+    </>
+  );
 };
 
 export default SingleCourseJumbotron;
