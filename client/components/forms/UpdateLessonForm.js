@@ -14,11 +14,11 @@ const UpdateLessonForm = ({
 }) => {
   return (
     <div className="container pt-3">
-      <form onSubmit={handleUpdateLesson}>
+      <form>
         <input
           type="text"
           className="form-control"
-          onChange={(e) => setValues({ ...current, title: e.target.value })}
+          onChange={(e) => setCurrent({ ...current, title: e.target.value })}
           autoFocus
           required
            value={current.title}
@@ -28,7 +28,7 @@ const UpdateLessonForm = ({
           cols="7"
           rows="7"
           className="form-control mt-3"
-          onChange={(e) => setValues({ ...values, content: e.target.value })}
+          onChange={(e) => setCurrent({ ...current, content: e.target.value })}
           value={current.content}
           ></textarea>
 

@@ -85,7 +85,7 @@ const CoureEdit = () => {
       toast("Course updated");
       router.push("/instructor");
     } catch (error) {
-      toast(err.response.data);
+      toast(error.response.data);
     }
   };
 
@@ -162,6 +162,7 @@ const CoureEdit = () => {
  
   const handleUpdateLesson = async (e) => {
     e.preventDefault()
+    console.log(current)
     const {data} = await axios.put(`/api/course/lesson/${slug}/${current._id}`, current)
     setVisible(false)
     setUploadVideoButtonText('Upload video')
