@@ -58,7 +58,7 @@ const UpdateLessonForm = ({
         )}
         <div className="d-flex justify-content-center pt-2">
             <span className="pt-3">Preview</span>
-            <Switch className="float-right mt-2" disabled={uploading} defaultChecked={current.free_preview} name="free_preview"
+            <Switch className="float-right mt-2" disabled={uploading} checked={current.free_preview} name="free_preview"
             onChange={v => setCurrent({...current, free_preview: v})}
             />
         </div>
