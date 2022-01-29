@@ -386,3 +386,10 @@ exports.stripeSuccess = async (req, res) => {
        res.json({success: false}) 
     }
 }
+
+exports.userCourses = async (req, res) => {
+    const user = await User.findById(req.user._id)
+    const courses = await Course.find({_id : {$in: user.courses}}).populate('instructor', '_id name')
+
+    res.json(courses)
+}
