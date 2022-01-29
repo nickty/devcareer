@@ -282,10 +282,10 @@ exports.courses = async (req, res) => {
 
 exports.checkEnrollment = async (req, res) => {
     const { courseId } = req.params
-    console.log(courseId)
+    // console.log(courseId)
     //find cousrse for current user
     const user = await User.findById(req.user._id) 
-    console.log(user)
+    // console.log(user)
     //check if course id is found and user courses array
     let ids = []
     let length = user.courses && user.courses.length
