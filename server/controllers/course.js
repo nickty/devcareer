@@ -4,6 +4,7 @@ const Course = require('../models/course.js')
 const slugify = require('slugify')
 const { readFileSync } = require('fs')
 const User = require('../models/user.js')
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 
 const awsConfig = {
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -70,6 +71,7 @@ exports.removeImage = async (req, res) => {
 
 //create course 
 exports.create = async (req, res) => {
+
     try {
         const alreadyExist = await Course.findOne({
             slug: slugify(req.body.name.toLowerCase())
@@ -312,6 +314,45 @@ exports.freeEnrollment = async (req, res) => {
               message: 'Congratulation, Your have succesfully enrolled',
               course: course
           })
+    } catch (error) {
+        console.log('Free enrollment', error)
+        return res.status(400).send('Enrollment create failed')
+    }
+}
+exports.paidEnrollment = async (req, res) => {
+    try {
+        //check if the course free or paid
+    const course = await Course.findById(req.params.courseId).populate('instructor')
+    if(!course.paid) return
+    
+    const fee = (course.price * 30) / 100
+    //create stripe session
+    const session = await stripe.checkout.session.create({
+        payment_method_types: ['card'],
+        //purchase details
+        line_items: [
+            {
+                name: course.name,
+                amount: Math.round(course.price.toFixed(2) * 100),
+                currency: 'usd',
+                quantity: 1
+            }
+        ],
+
+        //charge buyerand transfer remaining balance to seller
+        payment_intent_data: {
+            application_fee_amount: Math.round(fee.toFixed(2) * 100),
+            transfer_data : {
+                destination: course.instructor.stripe_account_id,
+            }, 
+        },
+        //redirect url after successful payment
+        success_url : `${process.env.STRIPE_SUCCESS_URL}/${course._id}`,
+        cancel_url : `${process.env.STRIPE_CANCEL_URL}`
+    })
+
+    await User.findByIdAndUpdate(req.user._id, { stripeSession: session})
+    res.send(session.id)
     } catch (error) {
         console.log('Free enrollment', error)
         return res.status(400).send('Enrollment create failed')
