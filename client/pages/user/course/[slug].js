@@ -26,6 +26,12 @@ function SingleCourse() {
     // console.log(data);
     setCourse(data);
   };
+
+  const markCompleted = async () => {
+    const { data } = await axios.post(`/api/mark-completed`, {
+        courseId: course._id, lessonId: course.lessons[clicked]._id
+    })
+  }
   return (
     <StudentRoute>
       <div className="row">
@@ -60,6 +66,10 @@ function SingleCourse() {
               {course.lessons[clicked].video &&
                 course.lessons[clicked].video.Location && (
                   <>
+                  <div className="col alert alert-primary square">
+                    <b>{course.lessons[clicked].title.substring(0, 30)}</b>
+                    <span className="float-right pointer" onClick={markCompleted}>Mark as completed</span>
+                  </div>
                     <div className="wrapper">
                       <ReactPlayer
                         className="player"
