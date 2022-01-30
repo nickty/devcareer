@@ -10,8 +10,6 @@ const StudentRoute = ({children, showNav= true}) => {
 
     const [ok, setOk] = useState(false)
 
- 
-
     useEffect(() => {
         fetchUser()
     }, [])
@@ -19,8 +17,11 @@ const StudentRoute = ({children, showNav= true}) => {
     const fetchUser = async () => {
         try {
             const { data } = await axios.get('/api/current-user')
-            console.log(data)
-            if(data.ok) setOk(true)
+            // console.log(data)
+            if(data.ok) {
+                setOk(true)
+            }
+            
         } catch (error) {
             console.log(error)
             setOk(false)
@@ -29,13 +30,13 @@ const StudentRoute = ({children, showNav= true}) => {
     }
 
     
-  return <> 
+  return (<> 
   {!ok ? <SyncOutlined spin className='d-flex justify-content-center display-2 p-5' /> : (
       <div className='container-fluid'>
           {children}
       </div>
   )}
-  </>;
+  </>);
 };
 
 export default StudentRoute;

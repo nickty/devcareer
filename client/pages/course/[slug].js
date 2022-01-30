@@ -8,7 +8,7 @@ import { context } from "../../context";
 import { toast } from "react-toastify";
 import { loadStripe } from "@stripe/stripe-js";
 
-const SingleCourse = ({ course }) => {
+const SingleCourse = () => {
   const [showModal, setShowModal] = useState(false);
   const [preview, setPreview] = useState("");
   const router = useRouter();
@@ -91,7 +91,7 @@ const SingleCourse = ({ course }) => {
         preview={preview}
       />
 
-      {course.lessons && (
+      {course && course.lessons && (
         <SingleCourseLesson
           lessons={course.lessons}
           setPreview={setPreview}
