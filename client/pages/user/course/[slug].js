@@ -10,6 +10,7 @@ import ReactMarkdown from "react-markdown";
 function SingleCourse() {
   const [loading, setLoading] = useState(false);
   const [course, setCourse] = useState({});
+  const [completedLesson, setCompletedLesson] = useState([])
 
   const [clicked, setClicked] = useState(-1);
   const [collapsed, setCollapsed] = useState(false);
@@ -20,6 +21,15 @@ function SingleCourse() {
   useEffect(() => {
     if (slug) loadCourse();
   }, [slug]);
+
+  useEffect(() => {
+    if(course) loadCompetedLesson()
+  }, [course])
+
+  const loadCompletedLesson = async () => {
+    const {data} = await axios.post(`/api/list-completed`, {courseId: course._id})
+    setCompletedLesson(data)
+  }
 
   const loadCourse = async () => {
     const { data } = await axios.get(`/api/user/course/${slug}`);

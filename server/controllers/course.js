@@ -426,3 +426,12 @@ exports.markCompleted = async (req, res) => {
             res.json({ok: true})
         }
 }
+
+exports.listCompleted = async (req, res) => {
+    try {
+        const list = await Completed.findOne({user: req.user._id, course: req.body.courseId})
+        list && res.json(list.lessons)
+    } catch (error) {
+        console.log(error)
+    }
+}
