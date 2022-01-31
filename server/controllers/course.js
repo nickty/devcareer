@@ -435,3 +435,16 @@ exports.listCompleted = async (req, res) => {
         console.log(error)
     }
 }
+
+exports.markIncomplete = async (req, res) => {
+    try {
+        const {courseId, lessonId} = req.body
+
+        const updated = await Completed.findOneAndUpdate({user: req.user._id, course: courseId}, {
+            $pull: { lessons: lessonId}
+        })
+        res.json({ok: true})
+    } catch (error) {
+        console.log(error)
+    }
+}
