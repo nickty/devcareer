@@ -17,8 +17,8 @@ const {
   freeEnrollment,
   paidEnrollment,
   stripeSuccess,
-  userCourses
-  
+  userCourses,
+  markCompleted
 } = require("../controllers/course");
 const { requireSignin, isInstructor, isUserEnrolled } = require("../middlewares");
 const formidable = require("express-formidable");
@@ -59,5 +59,8 @@ router.get('/stripe-success/:courseId', requireSignin, stripeSuccess)
 router.get('/user-courses', requireSignin, userCourses)
 
 router.get('/user/course/:slug', requireSignin, isUserEnrolled, read)
+
+//marking
+router.post('/mark-completed', requireSignin, markCompleted)
 
 module.exports = router;
