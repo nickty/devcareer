@@ -1,3 +1,5 @@
+/** @format */
+
 .squre {
   border-radius: 0px;
   color: red;
@@ -11,6 +13,8 @@
   margin-top: 23px;
   text-align: center;
   margin-bottom: 0 !important;
+  background-image: linear-gradient(to right, #00a2ff, rgb(61, 56, 56));
+  color: white;
 }
 
 .pointer {
