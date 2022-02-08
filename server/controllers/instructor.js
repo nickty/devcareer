@@ -21,7 +21,7 @@ exports.getAccountStatus = async (req, res) => {
     } catch (error) {
         console.log(err)
     }
-}
+
 
 exports.makeInstructor = async (req, res) => {
     try {
@@ -81,5 +81,30 @@ exports.studentCount = async (req, res) => {
         res.json(users)
     } catch (error) {
         console.log(error)
+    }
+}
+
+exports.instructorBalance = async (req, res) => {
+    try {
+        let user = await User.findById(req.user._id)
+
+        const balance = await stripe.balance.retrieve({
+            stripeAccount: user.stripe_account_id
+        })
+        res.json(balance)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+exports.instructorPayoutSettings = async (req, res) => {
+    try {
+
+        let user = await User.findById(req.user._id)
+
+        const loginLink = await stripe.accounts.createLoginLink(user.stripe_seller.id, {redirect_url: process.env.STRIPE_SETTINGS_REDIRECT})
+        res.json(loginLink.link)
+    } catch (error) {
+        console.log('Stripe payout settings login link error', error)
     }
 }
