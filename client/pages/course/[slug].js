@@ -8,7 +8,7 @@ import { context } from "../../context";
 import { toast } from "react-toastify";
 import { loadStripe } from "@stripe/stripe-js";
 
-const SingleCourse = () => {
+const SingleCourse = ({course}) => {
   const [showModal, setShowModal] = useState(false);
   const [preview, setPreview] = useState("");
   const router = useRouter();
