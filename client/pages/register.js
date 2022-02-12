@@ -87,7 +87,7 @@ const register = () => {
         <p className='text-center p-3'>
           Already registered?
           <Link href='/login'>
-            <a>Login</a>
+            <a> Login</a>
           </Link>
         </p>
       </div>

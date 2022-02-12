@@ -48,7 +48,7 @@ const login = () => {
   };
   return (
     <>
-      <div className='bg-light p-5 rounded-lg m-3'>
+      <div className='bg-light p-5 rounded-lg m-3 text-center'>
         <h2>Login</h2>
       </div>
       <div className='container col-md-4 offset-md-4 pb-5'>
@@ -79,7 +79,7 @@ const login = () => {
         <p className='text-center pt-3'>
           New here?
           <Link href='/register'>
-            <a>Register</a>
+            <a> Register</a>
           </Link>
         </p>
         <p className='text-center'>

@@ -74,6 +74,7 @@ const TopNav = () => {
           <Item
             key='/login'
             onlick={(e) => setCurrent(e.key)}
+            style={{ marginLeft: 'auto' }}
             icon={<LoginOutlined />}>
             <Link href='/login'>
               <a>Login</a>
@@ -105,8 +106,7 @@ const TopNav = () => {
         <SubMenu
           icon={<CoffeeOutlined />}
           title={user && user.name}
-          //   style={{ marginLeft: "auto" }}
-        >
+          style={{ marginLeft: 'auto' }}>
           <ItemGroup>
             <Item key='/user' icon={<LayoutOutlined />}>
               <Link href='/user'>
