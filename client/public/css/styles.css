@@ -7,16 +7,18 @@
 
 .jumbotron {
   position: relative;
-  padding: 0 !important;
-  margin-top: 70px !important;
   background: #eee;
-  margin-top: 23px;
   text-align: center;
-  margin-bottom: 0 !important;
+  margin-bottom: 10px !important;
   background-image: linear-gradient(to right, #00a2ff, rgb(61, 56, 56));
   color: white;
 }
 
 .pointer {
   cursor: pointer;
+}
+
+.alert-primary {
+  display: flex;
+  justify-content: space-between;
 }

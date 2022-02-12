@@ -20,7 +20,7 @@ const SingleCourseJumbotron = ({
   setEnrolled,
 }) => {
   const {
-    title,
+    name,
     description,
     instructor,
     updatedAt,
@@ -30,12 +30,13 @@ const SingleCourseJumbotron = ({
     paid,
     category,
   } = course;
+  // console.log(course);
   return (
     <>
       <div className='jumbotron bd-primay'>
         <div className='row'>
           <div className='col-md-8'>
-            <h2 className='text-light font-weight-bold'>{title}</h2>
+            <h2 className='text-light font-weight-bold'>{name}</h2>
             <p className='lead'>
               {description && description.substring(0, 160)}...
             </p>
@@ -74,7 +75,7 @@ const SingleCourseJumbotron = ({
               <>
                 <img
                   src={image.Location}
-                  alt={title}
+                  alt={name}
                   className='img img-fluid'
                 />
               </>
