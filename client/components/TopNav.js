@@ -46,6 +46,7 @@ const TopNav = () => {
         icon={<AppstoreOutlined />}>
         <Link href='/'>
           <a>DeCareer</a>
+          {/* <img src='/imgs/devcareer-logo.png' height={150} /> */}
         </Link>
       </Item>
       {user && user.role && user.role.includes('Instructor') ? (
