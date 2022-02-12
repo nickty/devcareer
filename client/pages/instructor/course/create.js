@@ -86,7 +86,7 @@ const create = () => {
 
   return (
     <InstructorRoute>
-      <h2 className='bg-light p-5 rounded-lg m-3'>Create Course</h2>
+      <h2 className='bg-light p-5 rounded-lg '>Create Course</h2>
       <div className='pt-3 pb-3'>
         <CourseCreateForm
           handleSubmit={handleSubmit}

@@ -35,7 +35,7 @@ const SingleCourseJumbotron = ({
     <>
       <div className='jumbotron bd-primay'>
         <div className='row'>
-          <div className='col-md-8'>
+          <div className='col-md-8 mt-3'>
             <h2 className='text-light font-weight-bold'>{name}</h2>
             <p className='lead'>
               {description && description.substring(0, 160)}...
@@ -56,7 +56,7 @@ const SingleCourseJumbotron = ({
                 : 'Free'}
             </h4>
           </div>
-          <div className='col-md-4'>
+          <div className='col-md-4 mt-4'>
             {lessons[1].video && lessons[1].video.Location ? (
               <div
                 onClick={() => {
@@ -88,7 +88,6 @@ const SingleCourseJumbotron = ({
               <Button
                 className='mb-3 mt-3'
                 type='danger'
-                block
                 shape='round'
                 size='large'
                 disabled={loading}

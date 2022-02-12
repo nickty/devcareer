@@ -41,7 +41,7 @@ const index = () => {
           className='d-flex justify-content-center display-1 text-danger p-5'
         />
       )}
-      <h2 className='bg-light p-5 rounded-lg m-3'>User Dashboard</h2>
+      <h2 className='bg-light p-5 rounded-lg '>User Dashboard</h2>
 
       {courses &&
         courses.map((course) => (

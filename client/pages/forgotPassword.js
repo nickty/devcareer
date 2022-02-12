@@ -58,7 +58,7 @@ const forgotPassword = () => {
   };
   return (
     <>
-      <h2 className='bg-light p-5 rounded-lg m-3'>Forgot Password Form</h2>
+      <h2 className='bg-light p-5 rounded-lg '>Forgot Password Form</h2>
       <div className='container col-md-4 offset-md-4 pb-5 mt-3'>
         <form onSubmit={success ? handleResetPassword : handleSubmit}>
           <input

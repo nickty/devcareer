@@ -192,7 +192,7 @@ const CoureEdit = () => {
 
   return (
     <InstructorRoute>
-      <h2 className='bg-light p-5 rounded-lg m-3'>Update Course</h2>
+      <h2 className='bg-light p-5 rounded-lg '>Update Course</h2>
       <div className='pt-3 pb-3'>
         <CourseCreateForm
           handleSubmit={handleSubmit}

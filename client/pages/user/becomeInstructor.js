@@ -34,7 +34,7 @@ const becomeInstructor = () => {
   };
   return (
     <>
-      <h2 className='bg-light p-5 rounded-lg m-3'>Become Instructor</h2>
+      <h2 className='bg-light p-5 rounded-lg '>Become Instructor</h2>
       <div className='container'>
         <div className='row'>
           <div className='col-md-6 offset-md-3'>

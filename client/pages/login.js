@@ -48,7 +48,7 @@ const login = () => {
   };
   return (
     <>
-      <div className='bg-light p-5 rounded-lg m-3 text-center'>
+      <div className='bg-light p-5 rounded-lg  text-center'>
         <h2>Login</h2>
       </div>
       <div className='container col-md-4 offset-md-4 pb-5'>

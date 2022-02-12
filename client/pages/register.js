@@ -47,7 +47,7 @@ const register = () => {
   };
   return (
     <>
-      <h2 className='bg-light p-5 rounded-lg m-3 bg-primary text-center'>
+      <h2 className='bg-light p-5 rounded-lg  bg-primary text-center'>
         Register
       </h2>
 

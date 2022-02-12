@@ -25,7 +25,7 @@ const index = () => {
   };
   return (
     <InstructorRoute>
-      <h2 className='bg-light p-5 rounded-lg m-3'>Instructor Dashboard</h2>
+      <h2 className='bg-light p-5 rounded-lg '>Instructor Dashboard</h2>
       {/* {console.log(courses)} */}
       {courses &&
         courses.map((course) => (
