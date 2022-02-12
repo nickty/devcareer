@@ -106,7 +106,8 @@ const TopNav = () => {
         <SubMenu
           icon={<CoffeeOutlined />}
           title={user && user.name}
-          style={{ marginLeft: 'auto' }}>
+          // style={{ marginLeft: 'auto' }}
+        >
           <ItemGroup>
             <Item key='/user' icon={<LayoutOutlined />}>
               <Link href='/user'>
