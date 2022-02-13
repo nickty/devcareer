@@ -30,7 +30,7 @@ const SingleCourseJumbotron = ({
     paid,
     category,
   } = course;
-  // console.log(course);
+  console.log(course);
   return (
     <>
       <div className='jumbotron bd-primay'>
@@ -68,13 +68,13 @@ const SingleCourseJumbotron = ({
                   url={lessons[0].video.Location}
                   width='100%'
                   height='205px'
-                  light={image.Location}
+                  light={image && image.Location}
                 />
               </div>
             ) : (
               <>
                 <img
-                  src={image.Location}
+                  src={image && image.Location}
                   alt={name}
                   className='img img-fluid'
                 />

@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { useRouter } from "next/router";
-import InstructorRoute from "../../../../components/routes/InstructorRoute";
-import axios from "axios";
-import { Avatar, Tooltip, Button, Modal, List, Item } from "antd";
+/** @format */
+
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import InstructorRoute from '../../../../components/routes/InstructorRoute';
+import axios from 'axios';
+import { Avatar, Tooltip, Button, Modal, List, Item } from 'antd';
 import {
   UserSwitchOutlined,
   EditOutlined,
@@ -10,10 +12,10 @@ import {
   UploadOutlined,
   QuestionCircleOutlined,
   CloseOutlined,
-} from "@ant-design/icons";
-import ReactMarkdown from "react-markdown";
-import AddLessionForm from "../../../../components/forms/AddLessionForm";
-import { toast } from "react-toastify";
+} from '@ant-design/icons';
+import ReactMarkdown from 'react-markdown';
+import AddLessionForm from '../../../../components/forms/AddLessionForm';
+import { toast } from 'react-toastify';
 
 const CourseView = () => {
   const [course, setCourse] = useState({});
@@ -22,10 +24,10 @@ const CourseView = () => {
   const router = useRouter();
 
   const [uploading, setUploading] = useState(false);
-  const [uploadButtonText, setUploadButtonText] = useState("Upload video");
+  const [uploadButtonText, setUploadButtonText] = useState('Upload video');
   const [values, setValues] = useState({
-    title: "",
-    content: "",
+    title: '',
+    content: '',
     video: {},
   });
 
@@ -63,15 +65,15 @@ const CourseView = () => {
         values
       );
 
-      setValues({ ...values, title: "", content: "", video: "" });
+      setValues({ ...values, title: '', content: '', video: '' });
       setProgress(0);
-      setUploadButtonText("Upload video");
+      setUploadButtonText('Upload video');
       setVisible(false);
       setCourse(data);
-      toast("Lesson added");
+      toast('Lesson added');
     } catch (error) {
       console.log(error);
-      toast("Lesson add failed");
+      toast('Lesson add failed');
     }
   };
 
@@ -82,7 +84,7 @@ const CourseView = () => {
       setUploading(true);
 
       const videoData = new FormData();
-      videoData.append("video", file);
+      videoData.append('video', file);
       //save progress bar and send vidoe a s form data to backend
       const { data } = await axios.post(
         `/api/course/video-upload/${course.instructor._id}`,
@@ -99,7 +101,7 @@ const CourseView = () => {
     } catch (error) {
       setUploading(false);
       console.log(error);
-      toast("Video upload failed");
+      toast('Video upload failed');
     }
   };
   const handleVideoRemove = async () => {
@@ -111,11 +113,11 @@ const CourseView = () => {
       );
       setValues({ ...values, video: {} });
       setUploading(false);
-      setUploadButtonText("Upload another video");
+      setUploadButtonText('Upload another video');
     } catch (error) {
       setUploading(false);
       console.log(error);
-      toast("Video remove failed");
+      toast('Video remove failed');
     }
   };
 
@@ -123,116 +125,114 @@ const CourseView = () => {
     // console.log(courseId)
     try {
       let answer = window.confirm(
-        "Once you pulished, it will be available for user to buy!"
+        'Once you pulished, it will be available for user to buy!'
       );
       if (!answer) return;
 
       const { data } = await axios.put(`/api/course/publish/${courseId}`);
       setCourse(data);
-      toast("Congrats! Your course is live now");
+      toast('Congrats! Your course is live now');
     } catch (error) {
-      toast("Your course is not live yet!, Try again");
+      toast('Your course is not live yet!, Try again');
     }
   };
   const handleUnpublish = async (e, courseId) => {
     try {
       let answer = window.confirm(
-        "Once you unpublish, it will not be available for user to buy!"
+        'Once you unpublish, it will not be available for user to buy!'
       );
       if (!answer) return;
       const { data } = await axios.put(`/api/course/unpublish/${courseId}`);
       setCourse(data);
-      toast("Your course is unpublished");
+      toast('Your course is unpublished');
     } catch (error) {
-      toast("Your course unpublished failed");
+      toast('Your course unpublished failed');
     }
   };
 
   return (
     <InstructorRoute>
-      <div className="container-fluid pt-3">
+      <div className='container-fluid pt-3'>
         {course && (
-          <div className="container-fluid pt-1">
+          <div className='container-fluid pt-1'>
             <Avatar
               size={80}
-              src={course.image ? course.image.Location : "/course.png"}
+              src={course.image ? course.image.Location : 'imgs/course.jpg'}
             />
-            <div className="media-body pl-2">
-              <div className="row">
-                <div className="col">
-                  <h5 className="mt-2 text-primary">{course.name}</h5>
-                  <p style={{ marginTop: "-10px" }}>
+            <div className='media-body pl-2'>
+              <div className='row'>
+                <div className='col'>
+                  <h5 className='mt-2 text-primary'>{course.name}</h5>
+                  <p style={{ marginTop: '-10px' }}>
                     {course.lessons && course.lessons.length} Lessons
                   </p>
-                  <p style={{ marginTop: "-15px", fontSize: "10px" }}>
+                  <p style={{ marginTop: '-15px', fontSize: '10px' }}>
                     {course.category}
                   </p>
                 </div>
               </div>
-              {console.log("course info", course._id)}
-              <div className="d-flex">
+              {console.log('course info', course._id)}
+              <div className='d-flex'>
                 <Tooltip title={`${student} Enrolled`}>
                   <UserSwitchOutlined
                     onClick={() =>
                       router.push(`/instructor/course/edit/${slug}`)
                     }
-                    className="h5 text-info mr-4 pointer"
+                    className='h5 text-info mr-4 pointer'
                   />
                 </Tooltip>
-                <Tooltip title="Edit">
+                <Tooltip title='Edit'>
                   <EditOutlined
                     onClick={() =>
                       router.push(`/instructor/course/edit/${slug}`)
                     }
-                    className="h5 text-warning mr-4 pointer"
+                    className='h5 text-warning mr-4 pointer'
                   />
                 </Tooltip>
                 {course.lessons && course.lessons.length < 5 ? (
-                  <Tooltip title="Five lessons required to publish">
-                    <QuestionCircleOutlined className="h5 text-danger pointer" />
+                  <Tooltip title='Five lessons required to publish'>
+                    <QuestionCircleOutlined className='h5 text-danger pointer' />
                   </Tooltip>
                 ) : course.published ? (
-                  <Tooltip title="Unpublished">
+                  <Tooltip title='Unpublished'>
                     <CloseOutlined
                       onClick={(e) => handleUnpublish(e, course._id)}
-                      className="h5 text-danger pointer"
+                      className='h5 text-danger pointer'
                     />
                   </Tooltip>
                 ) : (
-                  <Tooltip title="Publish">
+                  <Tooltip title='Publish'>
                     <CheckOutlined
                       onClick={(e) => handlePublish(e, course._id)}
-                      className="h5 text-success pointer"
+                      className='h5 text-success pointer'
                     />
                   </Tooltip>
                 )}
               </div>
 
-              <div className="row">
-                <div className="col">
+              <div className='row'>
+                <div className='col'>
                   <ReactMarkdown>{course.description}</ReactMarkdown>
                 </div>
               </div>
-              <div className="row">
+              <div className='row'>
                 <Button
                   onClick={() => setVisible(true)}
-                  className="col-md-6 offset-md-3 text-center"
-                  type="primary"
-                  shape="round"
+                  className='col-md-6 offset-md-3 text-center'
+                  type='primary'
+                  shape='round'
                   icon={<UploadOutlined />}
-                  size="large"
-                >
+                  size='large'>
                   Add Lesson
                 </Button>
               </div>
               <br />
               <Modal
-                title="+ Add Lesson"
+                title='+ Add Lesson'
                 created
                 visible={visible}
                 onCancel={() => setVisible(false)}
-                footer={null}
-              >
+                footer={null}>
                 <AddLessionForm
                   uploading={uploading}
                   values={values}
@@ -245,23 +245,21 @@ const CourseView = () => {
                 />
               </Modal>
 
-              <div className="row pb-5">
-                <div className="col lesson-list">
+              <div className='row pb-5'>
+                <div className='col lesson-list'>
                   <h4>
                     {course && course.lessons && course.lessons.length} Lessons
                   </h4>
                   <List
-                    itemLayout="horizontal"
+                    itemLayout='horizontal'
                     dataSource={course && course.lessons}
                     renderItem={(item, index) => (
                       <List.Item>
                         <List.Item.Meta
                           avatar={<Avatar>{index + 1}</Avatar>}
-                          title={item.title}
-                        ></List.Item.Meta>
+                          title={item.title}></List.Item.Meta>
                       </List.Item>
-                    )}
-                  ></List>
+                    )}></List>
                 </div>
               </div>
             </div>

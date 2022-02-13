@@ -49,7 +49,7 @@ const index = () => {
             <Avatar
               size={80}
               shape='square'
-              src={course.image ? course.image.Location : '/course.png'}
+              src={course.image ? course.image.Location : '/imgs/course.jpg'}
             />
 
             <div className='media-body pl-2'>
