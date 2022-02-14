@@ -6,10 +6,6 @@ body {
   height: 100vh;
 }
 
-* {
-  box-sizing: border-box;
-}
-
 .squre {
   border-radius: 0px;
   color: red;
@@ -31,4 +27,18 @@ body {
 .alert-primary {
   display: flex;
   justify-content: space-between;
+}
+
+#__next
+  > div.container-fluid
+  > div
+  > div:nth-child(1)
+  > ul
+  > li
+  > span.ant-menu-title-content
+  > span
+  > svg {
+  position: absolute;
+  right: 25px;
+  top: 13px;
 }
