@@ -60,4 +60,13 @@ body {
 
 #__next > div.container-fluid > div > div.col-md-2 {
   background-image: linear-gradient(45deg, #f0f0f0, transparent);
+  height: 100vh;
+}
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: #47525d;
+}
+.nav-link {
+  color: hsl(0deg 0% 13%);
 }

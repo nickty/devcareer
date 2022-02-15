@@ -26,7 +26,7 @@ const TopNav = () => {
   const router = useRouter();
   useEffect(() => {
     process.browser && setCurrent(window.location.pathname);
-  }, [process.browser]);
+  }, [process.browser, router]);
 
   const logout = async () => {
     dispatch({

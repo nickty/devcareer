@@ -51,7 +51,7 @@ const register = () => {
         Register
       </h2>
 
-      <div className='container col-md-4 offset-md-4 pb-5'>
+      <div className='container col-md-4 offset-md-4 pb-5 mt-5'>
         <form onSubmit={handleSubmit}>
           <input
             placeholder='Enter name'
