@@ -51,7 +51,7 @@ const login = () => {
       <div className='bg-light p-5 rounded-lg  text-center'>
         <h2>Login</h2>
       </div>
-      <div className='container col-md-4 offset-md-4 pb-5'>
+      <div className='container col-md-4 offset-md-4 pb-5 mt-5'>
         <form onSubmit={handleSubmit}>
           <input
             placeholder='Enter email'
@@ -69,7 +69,7 @@ const login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <br />
+
           <button
             className='btn btn-block btn-primary p-2'
             disabled={!email || !password || loading}>
