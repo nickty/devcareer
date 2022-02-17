@@ -1,18 +1,19 @@
 /** @format */
 
-import React, { useState, useContext, useEffect } from "react";
-import { useRouter } from "next/router";
-import axios from "axios";
-import SingleCourseJumbotron from "../../components/cards/SingleCourseJumbotron";
-import PreviewModal from "../../components/modal/PreviewModal";
-import SingleCourseLesson from "../../components/cards/SingleCourseLesson";
-import { context } from "../../context";
-import { toast } from "react-toastify";
-import { loadStripe } from "@stripe/stripe-js";
+import React, { useState, useContext, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import axios from 'axios';
+import SingleCourseJumbotron from '../../components/cards/SingleCourseJumbotron';
+import PreviewModal from '../../components/modal/PreviewModal';
+import SingleCourseLesson from '../../components/cards/SingleCourseLesson';
+import { context } from '../../context';
+import { toast } from 'react-toastify';
+import { loadStripe } from '@stripe/stripe-js';
+import SingleCourseContent from '../../components/cards/SingleCourseContent';
 
 const SingleCourse = ({ course }) => {
   const [showModal, setShowModal] = useState(false);
-  const [preview, setPreview] = useState("");
+  const [preview, setPreview] = useState('');
   const router = useRouter();
   const { slug } = router.query;
 
@@ -39,7 +40,7 @@ const SingleCourse = ({ course }) => {
     try {
       setLoading(true);
       //check if the user logged in
-      if (!user) router.push("/login");
+      if (!user) router.push('/login');
       //check the user if already enrolled
       if (enrolled.status)
         return router.push(`/user/course/${enrolled.course.slug}`);
@@ -48,7 +49,7 @@ const SingleCourse = ({ course }) => {
       const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
       stripe.redirectToCheckout({ sessionId: data });
     } catch (error) {
-      toast("Enrolment failed, try again");
+      toast('Enrolment failed, try again');
       console.log(error);
       setLoading(false);
     }
@@ -57,7 +58,7 @@ const SingleCourse = ({ course }) => {
     e.preventDefault();
     try {
       //check if the user logged in
-      if (!user) router.push("/login");
+      if (!user) router.push('/login');
       //check the user if already enrolled
       if (enrolled.status)
         return router.push(`/user/course/${enrolled.course.slug}`);
@@ -68,7 +69,7 @@ const SingleCourse = ({ course }) => {
       router.push(`/user/course/${data.course.slug}`);
     } catch (error) {
       setLoading(false);
-      toast("Enrollment failed, Try again");
+      toast('Enrollment failed, Try again');
     }
   };
 
@@ -87,6 +88,7 @@ const SingleCourse = ({ course }) => {
         enrolled={enrolled}
         setEnrolled={setEnrolled}
       />
+      <SingleCourseContent course={course} />
       <PreviewModal
         showModal={showModal}
         setShowModal={setShowModal}
