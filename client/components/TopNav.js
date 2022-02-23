@@ -50,7 +50,7 @@ const TopNav = () => {
           {/* <img src='/imgs/devcareer-logo.png' height={150} /> */}
         </Link>
       </Item>
-      {user && user.role && user.role.includes("Instructor") ? (
+      {/* {user && user.role && user.role.includes("Instructor") ? (
         <Item
           key="/instructor/course/create"
           onlick={(e) => setCurrent(e.key)}
@@ -70,7 +70,7 @@ const TopNav = () => {
             <a>Become Instructor</a>
           </Link>
         </Item>
-      )}
+      )} */}
 
       {user === null && (
         <>
